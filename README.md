@@ -29,3 +29,10 @@ A lone surrogate (e.g. `'\uD800'`) is not valid UTF-8. `TextEncoder` replaces it
 - `encodeComponent(input: string): string` — leaves only unreserved characters.
 
 All functions throw `TypeError` if `input` is not a string.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
